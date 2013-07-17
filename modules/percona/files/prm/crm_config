@@ -1,0 +1,43 @@
+node percona1 \
+	attributes p_mysql_mysql_master_IP="192.168.80.2" \
+	attributes standby="off"
+node percona2 \
+	attributes p_mysql_mysql_master_IP="192.168.80.3" \
+	attributes standby="off"
+node percona3 \
+	attributes p_mysql_mysql_master_IP="192.168.80.4" \
+	attributes standby="off"
+primitive p_mysql ocf:percona:mysql_prm56 \
+	params config="/etc/my.cnf" pid="/var/lib/mysql/mysqld.pid" socket="/var/lib/mysql/mysql.sock" replication_user="repl" replication_passwd="repl" max_slave_lag="60" evict_outdated_slaves="false" binary="/usr/sbin/mysqld" test_user="repl" test_passwd="repl" datadir="/var/lib/mysql" \
+	op monitor interval="5s" role="Master" OCF_CHECK_LEVEL="1" \
+	op monitor interval="2s" role="Slave" OCF_CHECK_LEVEL="1" \
+	op stop interval="0" timeout="60s" \
+	meta failure-timeout="30s"
+primitive reader_vip_1 ocf:heartbeat:IPaddr2 \
+	params ip="192.168.80.12" nic="eth0" \
+	op monitor interval="10s"
+primitive reader_vip_2 ocf:heartbeat:IPaddr2 \
+	params ip="192.168.80.13" nic="eth0" \
+	op monitor interval="10s"
+primitive reader_vip_3 ocf:heartbeat:IPaddr2 \
+	params ip="192.168.80.14" nic="eth0" \
+	op monitor interval="10s"
+primitive writer_vip ocf:heartbeat:IPaddr2 \
+	params ip="192.168.80.100" nic="eth0" \
+	op monitor interval="10s"
+ms ms_MySQL p_mysql \
+	meta master-max="1" master-node-max="1" clone-max="3" clone-node-max="1" notify="true" globally-unique="false" target-role="Master" is-managed="true"
+location loc-no-reader-vip-1 reader_vip_1 \
+	rule $id="rule-no-reader-vip-1" -inf: readable ne 1
+location loc-no-reader-vip-2 reader_vip_2 \
+	rule $id="rule-no-reader-vip-2" -inf: readable ne 1
+location loc-no-reader-vip-3 reader_vip_3 \
+	rule $id="rule-no-reader-vip-3" -inf: readable ne 1
+colocation writer_vip_on_master inf: writer_vip ms_MySQL:Master
+order ms_MySQL_promote_before_vip inf: ms_MySQL:promote writer_vip:start
+property $id="cib-bootstrap-options" \
+	dc-version="1.1.8-7.el6-394e906" \
+	no-quorum-policy="ignore" \
+	stonith-enabled="false" \
+	cluster-infrastructure="cman" \
+	maintenance-mode="false"
