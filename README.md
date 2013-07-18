@@ -14,7 +14,7 @@ How to use ?
 ------------
 
 Vagrant
-.......
+######
 
 So first you need to install vagrant (http://downloads.vagrantup.com/) 
 
