@@ -13,41 +13,35 @@ Requirements
 How to use ?
 ------------
 
-Vagrant
-######
+*Vagrant*
 
 So first you need to install vagrant (http://downloads.vagrantup.com/) 
 
-Example in Fedora::
+Example in Fedora
 
 	# wget http://files.vagrantup.com/packages/0219bb87725aac28a97c0e924c310cc97831fd9d/vagrant_1.2.4_x86_64.rpm
 	# yum localinstall vagrant_1.2.4_x86_64.rpm
 
 Install the CentOS 6.4 box, but fisrt you need to download it from https://mega.co.nz/#!vBlzhbib!aajn-EByg6itMjbitYDBz2mbUVRBVKjZv-XBQZ7UfzE
 
-::
 
         # vagrant box add centos64 centos64.box
 
-This environment
-................
+*This environment*
 
 It's as simple as git ;-)
 
-::
 
 	$ git clone https://github.com/lefred/vagrant-prm-gtid
 
 
 Then you can start it
 
-::
 
 	$ vagrant up
 
 You will see a bunch of puppet output and finally
 
-::
 
 	$ vagrant status
 	Current machine states:
@@ -62,7 +56,6 @@ You will see a bunch of puppet output and finally
 
 You can now connect to any of them using
 
-::
 	
 	$ vagrant ssh percona1
 	[vagrant@percona1 ~]$ sudo su -
