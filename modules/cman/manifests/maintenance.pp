@@ -4,7 +4,7 @@ class cman::maintenance {
         	"network_ha-clustering":
             		descr       => "High Availability/Clustering server technologies",
 	            	enabled     => 0,
-			baseurl	    => "http://download.opensuse.org/repositories/network:/ha-clustering/CentOS_CentOS-6/",
+			baseurl	    => "http://download.opensuse.org/repositories/network:/ha-clustering:/Stable/CentOS_CentOS-6/",
             		gpgcheck    => 0;
  	}
 

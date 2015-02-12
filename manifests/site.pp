@@ -1,4 +1,4 @@
-node percona1 {
+node node1 {
 	include percona::repository
         include percona::replication
         include percona::prm
@@ -17,7 +17,7 @@ node percona1 {
 	}
 }
 
-node percona2 {
+node node2 {
 	include percona::repository
         include percona::replication
         include percona::prm
@@ -37,7 +37,7 @@ node percona2 {
 
 }
 
-node percona3 {
+node node3 {
 	include percona::repository
         include percona::replication
         include percona::prm

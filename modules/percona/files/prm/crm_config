@@ -1,10 +1,10 @@
-node percona1 \
+node node1 \
 	attributes p_mysql_mysql_master_IP="192.168.80.2" \
 	attributes standby="off"
-node percona2 \
+node node2 \
 	attributes p_mysql_mysql_master_IP="192.168.80.3" \
 	attributes standby="off"
-node percona3 \
+node node3 \
 	attributes p_mysql_mysql_master_IP="192.168.80.4" \
 	attributes standby="off"
 primitive p_mysql ocf:percona:mysql_prm56 \

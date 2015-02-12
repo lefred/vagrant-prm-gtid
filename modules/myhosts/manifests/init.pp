@@ -1,12 +1,12 @@
 class myhosts {
 	host {
-		"percona1":
+		"node1":
 			ensure	=> "present",
 			ip 	=> "192.168.80.2";
-		"percona2":
+		"node2":
 			ensure	=> "present",
 			ip	=> "192.168.80.3";
-		"percona3":
+		"node3":
 			ensure	=> "present",
 			ip	=> "192.168.80.4";
 	}
