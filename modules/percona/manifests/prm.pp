@@ -20,7 +20,7 @@ class percona::prm {
         		require => File["/usr/lib/ocf/resource.d/percona"],
     	}
 
-	if $hostname == "percona1" {
+	if $hostname == "node1" {
     		file {
         		"/root/crm_config":
         			ensure  => present,
